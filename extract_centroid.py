@@ -204,6 +204,7 @@ class ExtractCentroid:
         layer = iface.activeLayer()
         selected_features = layer.selectedFeatures()
 
+        """create centroid shapefile"""
         prov = mem_layer.dataProvider()
         input_layer_attrib_names = layer.dataProvider().fields()
         # print input_layer_attrib_names
@@ -246,8 +247,11 @@ class ExtractCentroid:
             prov.addFeatures([feat])
             i += 1
 
+        """add centroid layer to interface"""
         QgsMapLayerRegistry.instance().addMapLayer(mem_layer)
         # iface.showAttributeTable(iface.activeLayer())
+
+        """Save centroid as csv"""
         QgsVectorFileWriter.writeAsVectorFormat(
             mem_layer, r'extract_centroid', "utf-8", None, "CSV", layerOptions='GEOMETRY=AS_XYZ')
 
@@ -261,5 +265,6 @@ class ExtractCentroid:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
+            """run function"""
             self.extract_centroid()
             pass
